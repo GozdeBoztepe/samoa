@@ -605,9 +605,13 @@ final class ModelAggregatorProcessor implements Processor {
     // model context is used to describe the model
     logger.trace("Model context: {}", ih.toString());
   }
-
+//Mcdiarmid yapilacak
   private static double computeHoeffdingBound(double range, double confidence, double n) {
-    return Math.sqrt((Math.pow(range, 2.0) * Math.log(1.0 / confidence)) / (2.0 * n));
+   
+    int n = ArffFileStream.numInstancesRead;
+	int k = ArffFileStream.classValues.size();
+	double mcDiarmidsBound = (6 * (k * log2(Math.E * n) + log2(2 * n)) + 2 * log2(k)) * Math.sqrt(Math.log(1.0 / (1-confidence)) / (2 * n));
+	return Math.sqrt((Math.pow(range, 2.0) * Math.log(1.0 / confidence)) / (2.0 * n));
   }
 
   /**
